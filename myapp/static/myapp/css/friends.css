@@ -1,0 +1,27 @@
+
+.icon-img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 40px;
+}
+
+.userlink{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-bottom:2px solid #000;
+    padding:10px; /* a要素内の余白 */
+}
+.userlink:hover { 
+    background-color: #ff2;
+    color:#000; 
+}
+
+.friend-list__item{
+    display: flex;
+    align-items: center;
+}
+.username{
+    font-size: 20px;
+}

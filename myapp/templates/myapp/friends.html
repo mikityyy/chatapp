@@ -1,0 +1,32 @@
+{% extends 'myapp/base.html' %}
+
+{% block header-title %}
+    <div class="friends-title">友達</div>
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="static/myapp/css/friends.css">
+
+
+    
+    {% for friend in friends %}
+    {% with friend.latest_message as latest_message %}
+        <a class="userlink" href="{% url 'talk_room' friend.pk %}">
+            <div class="friend-list__item">
+                <img class="icon-img" src="{{ friend.thumbnail.url }}">
+                <div class="friend-info">
+                    <div class="username">{{ friend.username }}</div>
+                    {% if latest_message %}
+                        <div class="">
+                            <p class="">{{ latest_message.message }}&emsp;{{ latest_message.created_at|date:"n/j H:i" }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    {% endwith %}
+    {% endfor %}
+   
+{% endblock %}

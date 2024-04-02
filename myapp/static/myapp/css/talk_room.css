@@ -1,0 +1,12 @@
+.message-form {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #44aa33; /* 背景色を適切に設定 */
+}
+
+.message-total{
+    border-bottom: solid 1px #000;
+}
+

@@ -1,1 +1,37 @@
-TR
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block header-title %}
+    <div class="tr-title">{{friend}}</div>
+{% endblock %}
+          
+
+
+{% block extra_style %}
+<link rel="stylesheet" href="static/myapp/css/talk_room.css">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/css/talk_room.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+    {% for message in messages %}
+        <div class="message-total">
+            <div class="">＞{{message.from_name}}</div>
+                <div class="">{{message.message}}</div>
+                <div class="">{{message.created_at}}</div>
+            </div>
+    {% endfor %}
+
+
+    <div class="message-form">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.message }}
+            <button type="submit">送信</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}{% endblock %}

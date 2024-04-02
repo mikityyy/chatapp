@@ -1,0 +1,17 @@
+.container1{
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+}
+.container2{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.item{
+    font-size: 25px;
+    color: #000000;
+    text-decoration: none;
+    border: 2px solid #000000;
+    background-color: #ffffff;
+}

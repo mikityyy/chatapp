@@ -1,1 +1,23 @@
-SU
+{% extends 'myapp/base.html' %}
+
+{% block header-title %}
+    <div class="signup-title">会員登録</div>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="static/myapp/css/signup.css">
+    
+    
+    <form action="{% url 'signup_view' %}" method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <button href="{% url 'index' %}" type="submit">送信</button>
+    </form>
+{% endblock %}
