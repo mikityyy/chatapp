@@ -141,5 +141,5 @@ def thumbnail_change(request):
 
 
 class PasswordChangeView(PasswordChangeView):
-    template_name = 'password_change.html'  # パスワード変更フォームのテンプレート
+    template_name = 'myapp/password_change.html'  # パスワード変更フォームのテンプレート
     success_url = reverse_lazy('index')  # パスワード変更成功後のリダイレクト先のURL
