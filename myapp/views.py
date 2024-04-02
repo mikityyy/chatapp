@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, LoginForm, MessageForm, UsernameChangeForm
+from .forms import SignUpForm, LoginForm, MessageForm, UsernameChangeForm, EmailChangeForm
 from myapp.models import CustomUser, Message
 from django.db.models import Q
 from django.views.generic.edit import UpdateView
@@ -99,13 +99,27 @@ def setting(request):
 
 
 @login_required
-def username_update_view(request):
+def username_change(request):
     if request.method == 'POST':
         form = UsernameChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse_lazy('index'))  # Change 'index' to the name of your index URL
+            return redirect('index')
     else:
         form = UsernameChangeForm(instance=request.user)
     
-    return render(request, 'username_change.html', {'form': form})
+    return render(request, 'myapp/username_change.html', {'form': form})
+
+
+
+@login_required
+def email_change(request):
+    if request.method == 'POST':
+        form = EmailChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = EmailChangeForm(instance=request.user)
+    
+    return render(request, 'myapp/email_change.html', {'form': form})
