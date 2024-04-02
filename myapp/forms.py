@@ -31,3 +31,14 @@ class EmailChangeForm (forms.ModelForm):
     class Meta:
         model = CustomUser
         fields =['email']
+
+class EmailChangeForm (forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields =['email']
+
+
+class ThumbnailChangeForm (forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields =['thumbnail']
