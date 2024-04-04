@@ -2,20 +2,18 @@
 
 
 
-{% block header-title %}
-    <div class="login-title">ログイン</div>
-{% endblock %}
+{% block header-title %}会員登録{% endblock %}
 
 
     
 {% block content %}
-    <form method="post" action="{% url 'account_login' %}">
+    <form method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form.as_p }}
         {% if redirect_field_value %}
             <input type="hidden" name ="{{redirect_field_name}}" value="{{redirect_field_value}}">
         {% endif %}
-        <button type="submit">ログイン</button>
+        <button type="submit">登録</button>
 
     </form>
 

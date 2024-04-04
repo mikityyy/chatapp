@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'myapp',
 
     
     'django.contrib.sites',
     'allauth',
-    'allauth.account'
+    'allauth.account',
+    'allauth.socialaccount'
 ]
 
 SITE_ID=1
@@ -52,12 +56,22 @@ AUTHENTICATION_BACKENDS=[
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+
+
 ACCOUNT_AUTHENTICATION_METHOD ='email'
 ACCOUNT_USERNAME_REQUIRED =False
 
 ACCOUNT_EMAIL_VERIFICATION ='mandatory'
 ACCOUNT_EMAIL_REQUIRED=True
 
+LOGIN_REDIRECT_URL='index'
+ACCOUT_LOGOUT_REDIRECT_URL='account_login'
+
+ACCOUNT_LOGOUT_ON_GET=True
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX=''
+
+DEFAULT_FROM_EMAIL='admin@example.com'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,5 +163,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media_local'
 AUTH_USER_MODEL ='myapp.CustomUser'
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/friends'
+LOGIN_URL = '/login'

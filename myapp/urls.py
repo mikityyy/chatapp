@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .views import PasswordChangeView
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path('email_change', views.email_change, name='email_change'),
     path('thumbnail_change', views.thumbnail_change, name='thumbnail_change'),
     path('password_change', views.PasswordChangeView.as_view(), name='password_change'),
+    
 ]
