@@ -71,6 +71,7 @@ ACCOUNT_LOGOUT_ON_GET=True
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX=''
 
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 DEFAULT_FROM_EMAIL='admin@example.com'
 
 MIDDLEWARE = [
