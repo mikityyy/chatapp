@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, LoginForm, MessageForm, UsernameChangeForm, EmailChangeForm, ThumbnailChangeForm
+from .forms import SignUpForm, LoginForm, MessageForm, UsernameChangeForm, EmailChangeForm, ThumbnailChangeForm, PasswordChangeForm
 from myapp.models import CustomUser, Message
 from django.db.models import Q
 from django.contrib.auth.views import PasswordChangeView
@@ -142,4 +142,5 @@ def thumbnail_change(request):
 
 class PasswordChangeView(PasswordChangeView):
     template_name = 'myapp/password_change.html'  # パスワード変更フォームのテンプレート
+    form_class = PasswordChangeForm
     success_url = reverse_lazy('index')  # パスワード変更成功後のリダイレクト先のURL

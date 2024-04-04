@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from .models import CustomUser, Message
 
 
@@ -42,3 +42,9 @@ class ThumbnailChangeForm (forms.ModelForm):
     class Meta:
         model = CustomUser
         fields =['thumbnail']
+
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    pass
+   
