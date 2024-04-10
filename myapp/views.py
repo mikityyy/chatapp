@@ -21,28 +21,12 @@ def signup_view(request):
         form = SignUpForm()
     return render(request, "myapp/signup.html", {'form': form})
 
-def login_view(request):
-    if request.method == "POST":
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            if user is not None:
-                login(request, user)
-                return redirect('friends')
-            else:
-                # Authentication failed
-                # You may want to handle this case differently, e.g., show an error message
-                pass
-    else:
-        form = LoginForm()
-
-    return render(request, "myapp/login.html", {'form':form})
 
 def logout_view(request):
     logout(request)
     return redirect('index')
 
-
+@login_required
 def friends(request):
     user = request.user
     friends = CustomUser.objects.exclude(id=user.id)
