@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     
-    thumbnail = models.ImageField(upload_to='img/', default = "https://www.google.com/url?sa=i&url=https%3A%2F%2Feverydayicons.jp%2Ficons%2Ftag%2F%25E3%2582%25A2%25E3%2583%2590%25E3%2582%25BF%25E3%2583%25BC%2F&psig=AOvVaw2r0V2i9L_kTnQ_COeNy_EY&ust=1711626088288000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKDbw5mulIUDFQAAAAAdAAAAABAE", null=True, blank=True)
+    thumbnail = models.ImageField(upload_to='img/', null=True, blank=True)
 
     def __str__(self):
         return  self.username 

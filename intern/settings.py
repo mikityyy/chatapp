@@ -121,8 +121,8 @@ WSGI_APPLICATION = 'intern.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hosotani',
-        'USER': 'hosotanimiki',
+        'NAME': 'hosotani2',
+        'USER': 'hosotanimiki2',
         'PASSWORD': '2002miki',
         'HOST': 'localhost',
         'PORT': '5432',
