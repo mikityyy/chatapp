@@ -16,7 +16,7 @@ class CustomUser(AbstractUser):
 class Message(models.Model):
     to_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='reciever', null=True, blank=True)
     from_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sender', null=True, blank=True)
-    message = models.TextField(null=True, blank=True)
+    message = models.TextField(null=True, blank=True, max_length=200)
     created_at = models.DateTimeField(default = timezone.now)
     
     class Meta:

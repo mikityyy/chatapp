@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import environ # 追加
+import allauth
 
 if os.path.isfile('.env'): # .envファイルが存在しない時にもエラーが発生しないようにする
     env = environ.Env(DEBUG=(bool, False),)
@@ -119,8 +120,12 @@ WSGI_APPLICATION = 'intern.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'hosotani',
+        'USER': 'hosotanimiki',
+        'PASSWORD': '2002miki',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
