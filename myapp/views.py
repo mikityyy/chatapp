@@ -42,7 +42,7 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-@login_required
+
 def friends(request):
     user = request.user
     friends = CustomUser.objects.exclude(id=user.id)
