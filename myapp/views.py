@@ -11,20 +11,6 @@ from django.urls import reverse_lazy
 def index(request):
     return render(request, "myapp/index.html")
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return render(request, "myapp/index.html", {'form': form})
-    else:
-        form = SignUpForm()
-    return render(request, "myapp/signup.html", {'form': form})
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('index')
 
 @login_required
 def friends(request):

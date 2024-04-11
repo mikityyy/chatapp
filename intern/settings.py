@@ -68,13 +68,15 @@ AUTHENTICATION_BACKENDS=[
 
 
 ACCOUNT_AUTHENTICATION_METHOD ='email'
-ACCOUNT_USERNAME_REQUIRED =False
+ACCOUNT_USERNAME_REQUIRED =True
 
 ACCOUNT_EMAIL_VERIFICATION ='mandatory'
 ACCOUNT_EMAIL_REQUIRED=True
 
-LOGIN_REDIRECT_URL='index'
-ACCOUT_LOGOUT_REDIRECT_URL='account_login'
+LOGIN_REDIRECT_URL='friends'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'account_login'
+
 
 ACCOUNT_LOGOUT_ON_GET=True
 
@@ -154,7 +156,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
 TIME_ZONE = 'UTC'
 
@@ -178,4 +180,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media_local'
 AUTH_USER_MODEL ='myapp.CustomUser'
-LOGIN_URL = '/accounts/login'
+
+
+

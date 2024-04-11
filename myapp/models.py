@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     thumbnail = models.ImageField(upload_to='img/', null=True, blank=True)
     class Meta:
         verbose_name_plural='CustomUser'
+        
     def __str__(self):
         return  self.username 
 
