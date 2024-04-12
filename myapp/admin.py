@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, Message
-from .forms import SignUpForm
+from allauth.account.forms import SignupForm
+
 
 class CustomUserAdmin(UserAdmin):
-    add_form = SignUpForm
+    add_form = SignupForm
     model = CustomUser
     list_display = ('username', 'email', 'thumbnail', 'is_staff', 'is_active',)
     list_filter = ('is_staff', 'is_active',)

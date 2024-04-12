@@ -2,7 +2,7 @@ from django.urls import path, include
 from . import views
 from .views import PasswordChangeView
 from django.contrib.auth import views as auth_views
-from allauth.account.views import LoginView, LogoutView, SignupView
+
 
 
 urlpatterns = [

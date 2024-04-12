@@ -1,15 +1,15 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import  PasswordChangeForm
 from .models import CustomUser, Message
+#from allauth.account.forms import SignupForm
 
 
-class SignUpForm(UserCreationForm):
-    class Meta:
-        model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2','thumbnail',)
-
-class LoginForm(AuthenticationForm):
-    pass
+#class CustomSignupForm(SignupForm):
+    #thumbnail=forms.ImageField(label='アイコン画像', required=False)
+    #class Meta:
+        #model=CustomUser
+        #fields=('username, password1, password2, email, thumbnail')
+    
     
 
 class MessageForm(forms.ModelForm):

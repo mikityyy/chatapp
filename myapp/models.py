@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     
-    thumbnail = models.ImageField(upload_to='img/', null=True, blank=True)
+    thumbnail = models.ImageField(upload_to='img/', null=True, blank=True, default='img/default.png')
     class Meta:
         verbose_name_plural='CustomUser'
         

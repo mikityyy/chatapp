@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, LoginForm, MessageForm, UsernameChangeForm, EmailChangeForm, ThumbnailChangeForm, PasswordChangeForm
+from .forms import  MessageForm, UsernameChangeForm, EmailChangeForm, ThumbnailChangeForm, PasswordChangeForm
 from myapp.models import CustomUser, Message
 from django.db.models import Q
 from django.contrib.auth.views import PasswordChangeView
@@ -10,6 +10,15 @@ from django.urls import reverse_lazy
 
 def index(request):
     return render(request, "myapp/index.html")
+    
+
+# def signup(self, request, user):
+#     form = SignupForm(request.POST)
+#     if form.is_valid():
+#         user.thumbnail = form.cleaned_data['thumbnail']
+#         user.save()
+#     return user
+
 
 
 @login_required
@@ -18,7 +27,7 @@ def friends(request):
     friends = CustomUser.objects.exclude(id=user.id)
     for friend in friends:
         latest_message = Message.objects.filter(
-            (Q(from_name=user, to_name=friend) | Q(from_name=friend, to_name=user))
+            Q(from_name=user, to_name=friend) | Q(from_name=friend, to_name=user)
         ).order_by('-created_at').first()
         friend.latest_message = latest_message
     return render(request, "myapp/friends.html", {'friends': friends})
