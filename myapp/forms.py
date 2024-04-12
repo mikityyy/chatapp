@@ -9,8 +9,15 @@ from .models import CustomUser, Message
     #class Meta:
         #model=CustomUser
         #fields=('username, password1, password2, email, thumbnail')
-    
-    
+
+
+class FriendSearchForm(forms.Form):
+    keyword = forms.CharField(
+        label='フレンド検索', 
+        required=False,
+        widget=forms.TextInput(attrs={"autocomplete": "off"}),
+        )  
+        
 
 class MessageForm(forms.ModelForm):
     class Meta:
