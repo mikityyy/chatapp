@@ -7,26 +7,46 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="static/myapp/css/friends.css">
-
+    <link rel="stylesheet" href="static/myapp/css/friends.css">
+    <!-- 検索フォーム -->
+    <form class="input_form" method="get" action="{%url 'friends'%}">
+        {%csrf_token%}
+        {{form}}
+        <button type="submit"  name="friends_search">検索</button>
+    </form>
+   
+    <!-- 検索フォーム -->
 
     
-    {% for friend in friends %}
-    {% with friend.latest_message as latest_message %}
-        <a class="userlink" href="{% url 'talk_room' friend.pk %}">
-            <div class="friend-list__item">
-                <img class="icon-img" src="{{ friend.thumbnail.url }}">
-                <div class="friend-info">
-                    <div class="username">{{ friend.username }}</div>
-                    {% if latest_message %}
-                        <div class="">
-                            <p class="">{{ latest_message.message }}&emsp;{{ latest_message.created_at|date:"n/j H:i" }}</p>
-                        </div>
-                    {% endif %}
+    {% if is_searched %}
+    
+        {% if friends %}
+            <ul>
+                {% for friend in friends %}
+                    <li>{{ friend.username }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+
+    {% else %}
+        {% for friend in friends %}
+        {% with friend.latest_message as latest_message %}
+            <a class="userlink" href="{% url 'talk_room' friend.pk %}">
+                <div class="friend-list__item">
+                    <img class="icon-img" src="{{ friend.thumbnail.url }}">
+                    <div class="friend-info">
+                        <div class="username">{{ friend.username }}</div>
+                        {% if latest_message %}
+                            <div class="">
+                                <p class="">{{ latest_message.message }}&emsp;{{ latest_message.created_at|date:"n/j H:i" }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        </a>
-    {% endwith %}
-    {% endfor %}
-   
+            </a>
+        {% endwith %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
