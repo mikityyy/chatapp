@@ -8,11 +8,15 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 import operator
+from django.db.models import Max
+
 
 
 
 def index(request):
-    return render(request, "myapp/index.html")
+    ip = request.META.get('REMOTE_ADDR')  # これで取得できたIPをINTERNAL_IPSに追加する
+    return render(request, 'myapp/index.html', {"ip": ip})
+    
     
 
 # def signup(self, request, user):
@@ -34,36 +38,58 @@ def friends(request):
     if request.method == "GET" and "friends_search" in request.GET:
         form = FriendSearchForm(request.GET)
         # print("Form submitted with search query")
+
         if form.is_valid():
-            # print("Form is valid")
-            keyword = form.cleaned_data['keyword'] 
-            friends = CustomUser.objects.filter(username__icontains=keyword).exclude(id=user.id)
-            context={
+            keyword = form.cleaned_data['keyword']
+            email = form.cleaned_data['email']
+            
+            # ユーザー名の部分一致検索
+            friends = CustomUser.objects.filter(
+                Q(username__icontains=keyword)
+            ).exclude(id=user.id)
+
+            # メールアドレスの部分一致検索
+            if email:
+                friends = friends.filter(email__icontains=email)
+            
+            context = {
                 "form": form,
-                "friends":friends,
-                # 検索結果を表示する画面にするために、そうであることを明示する変数を作る
+                "friends": friends,
                 "is_searched": True,
             }
             return render(request, "myapp/friends.html", context)
-        # else:
-            # print("Form is invalid")  # Debugging print statement
-            # print(form.errors)  # Debugging print statement
 
+        # 友達の ID をリストとして取得
+    friend_ids = friends.values_list('id', flat=True)
+
+    # メッセージを取得するクエリ
+    latest_messages = Message.objects.filter(
+        Q(from_name=user, to_name_id__in=friend_ids) | Q(from_name_id__in=friend_ids, to_name=user)
+    ).annotate(
+        latest_message_time=Max('created_at')
+    )
+
+    # 最新のメッセージを友達ごとに取得し、辞書に保存する
+    latest_messages_dict = {}
+    for msg in latest_messages:
+        if msg.from_name_id == user.id:
+            friend_id = msg.to_name_id
+        else:
+            friend_id = msg.from_name_id
+        
+        if friend_id not in latest_messages_dict or msg.latest_message_time > latest_messages_dict[friend_id]['latest_message_time']:
+            latest_messages_dict[friend_id] = {'latest_message': msg, 'latest_message_time': msg.latest_message_time}
+
+    # 友達のリストに最新のメッセージを追加する
+    for friend in friends:
+        friend.latest_message = latest_messages_dict.get(friend.id, {}).get('latest_message')
+
+    # context に追加
     context = {
         "form": form,
         "friends": friends,
     }
-
     
-
-    
-    for friend in friends:
-        latest_message = Message.objects.filter(
-            Q(from_name=user, to_name=friend) | Q(from_name=friend, to_name=user)
-        ).order_by('-created_at').last()
-        friend.latest_message = latest_message
-
-        
     return render(request, "myapp/friends.html", context)
 
 
@@ -76,9 +102,9 @@ def talk_room(request, pk):
     friend = get_object_or_404(CustomUser, pk=pk)
 
      
-    messages = Message.objects.all().filter(
+    messages = Message.objects.filter(
         Q(from_name=user, to_name=friend) | Q(from_name=friend, to_name=user)
-    ).order_by('-created_at')
+    ).select_related('from_name', 'to_name').order_by('-created_at')
 
     form=MessageForm
     data = {

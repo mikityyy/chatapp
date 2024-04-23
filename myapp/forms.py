@@ -13,10 +13,13 @@ from .models import CustomUser, Message
 
 class FriendSearchForm(forms.Form):
     keyword = forms.CharField(
-        label='フレンド検索', 
+        label='フレンド名検索', 
         required=False,
         widget=forms.TextInput(attrs={"autocomplete": "off"}),
         )  
+    email = forms.EmailField(
+        label='メールアドレス検索', required=False, validators=[]
+        )
         
 
 class MessageForm(forms.ModelForm):

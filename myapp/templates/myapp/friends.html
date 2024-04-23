@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="static/myapp/css/friends.css">
     <!-- 検索フォーム -->
-    <form class="input_form" method="get" action="{%url 'friends'%}">
+    <form class="input_form" method="get" action="{%url 'friends'%}" novalidate>
         {%csrf_token%}
         {{form}}
         <button type="submit"  name="friends_search">検索</button>
